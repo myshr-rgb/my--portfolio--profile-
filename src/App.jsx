@@ -205,7 +205,7 @@ function App() {
             
             <div className="spotify-project-card glass-panel">
               <div className="project-artwork">
-                <img src={project1Img} alt="GPS & GSM Location Tracker" className="project-img" />
+                <img src="/picture1.jpeg" alt="GPS & GSM Location Tracker" className="project-img" />
               </div>
               
               <div className="project-details">
@@ -221,7 +221,7 @@ function App() {
             
             <div className="spotify-project-card glass-panel">
               <div className="project-artwork">
-                <img src={project2Img} alt="Next Big Project" className="project-img" />
+                <img src="/picture2.jpeg" alt="Next Big Project" className="project-img" />
               </div>
               
               <div className="project-details">
@@ -237,7 +237,7 @@ function App() {
 
             <div className="spotify-project-card glass-panel">
               <div className="project-artwork">
-                <img src={project2Img} alt="Next Big Project" className="project-img" />
+                <img src="/picture3.jpeg" alt="Next Big Project" className="project-img" />
               </div>
               
               <div className="project-details">
