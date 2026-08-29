@@ -16,6 +16,7 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+/* --- SCROLLING BODY --- */
 body, #root {
     background-color: var(--bg-main);
     color: var(--text-main);
@@ -30,7 +31,7 @@ body, #root {
     min-height: 100vh;
 }
 
-/* --- LIQUID GLASS EFFECT --- */
+/* --- LIQUID GLASS EFFECT (GLOBAL UTILITY) --- */
 .glass-panel {
     background: rgba(255, 255, 255, 0.04);
     backdrop-filter: blur(20px);
@@ -335,11 +336,17 @@ body, #root {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    transition: transform 0.3s;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+    opacity: 1 !important;
+    transform: none !important;
 }
 
 .spotify-project-card:hover {
-    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(29, 185, 84, 0.4);
+    transform: translateY(-6px) !important;
 }
 
 .project-artwork {
@@ -460,6 +467,113 @@ body, #root {
     font-size: 0.9rem;
 }
 
+/* --- MUSIC PLAYER WIDGET & EQUALIZER --- */
+.music-player-widget {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+    padding-left: 1.5rem;
+}
+
+.music-toggle-btn, .music-next-btn {
+    background: var(--spotify-green);
+    color: #000;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 500px;
+    font-weight: 700;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    animation: pulseGlow 2s infinite;
+}
+
+.music-toggle-btn:hover, .music-next-btn:hover {
+    transform: scale(1.05);
+    background-color: var(--spotify-green-hover);
+}
+
+.track-title-ticker {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    max-width: 110px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --- ANIMATIONS & EQUALIZER --- */
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(29, 185, 84, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(29, 185, 84, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(29, 185, 84, 0); }
+}
+
+@keyframes borderShimmer {
+    0% { border-color: rgba(29, 185, 84, 0.2); }
+    50% { border-color: rgba(29, 185, 84, 0.6); }
+    100% { border-color: rgba(29, 185, 84, 0.2); }
+}
+
+.glass-panel:hover {
+    animation: borderShimmer 3s infinite ease-in-out;
+}
+
+.equalizer {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 14px;
+    width: 14px;
+}
+
+.equalizer span {
+    display: block;
+    width: 3px;
+    height: 4px;
+    background-color: var(--spotify-green);
+    border-radius: 1px;
+    transition: height 0.2s ease;
+}
+
+.equalizer.active span:nth-child(1) {
+    animation: bounceBar 0.6s infinite alternate ease-in-out;
+}
+
+.equalizer.active span:nth-child(2) {
+    animation: bounceBar 0.4s infinite alternate ease-in-out 0.15s;
+}
+
+.equalizer.active span:nth-child(3) {
+    animation: bounceBar 0.5s infinite alternate ease-in-out 0.3s;
+}
+
+@keyframes bounceBar {
+    0% { height: 4px; }
+    100% { height: 14px; }
+}
+
+@keyframes sophisticatedFadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.spotify-project-card, .skill-item {
+    opacity: 0;
+    animation: sophisticatedFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.spotify-project-card:nth-child(1) { animation-delay: 0.2s; }
+.spotify-project-card:nth-child(2) { animation-delay: 0.4s; }
+
 /* --- RESPONSIVENESS --- */
 @media (max-width: 900px) {
     .about-layout {
@@ -479,38 +593,72 @@ body, #root {
     .main-content {
         padding: 0 5%;
     }
-}
-.music-player-widget {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    border-left: 1px solid rgba(255, 255, 255, 0.15);
-    padding-left: 1.5rem;
+    .nav-links {
+        gap: 1rem;
+        padding: 0.6rem 1.2rem;
+    }
+    .nav-links a {
+        font-size: 0.75rem;
+    }
+    .track-title-ticker {
+        display: none;
+    }
+    .music-player-widget {
+        padding-left: 0.8rem;
+        gap: 0.4rem;
+    }
+
 }
 
-.music-toggle-btn, .music-next-btn {
-    background: var(--spotify-green);
-    color: #000;
-    border: none;
-    padding: 0.4rem 0.8rem;
-    border-radius: 500px;
-    font-weight: 700;
-    font-size: 0.75rem;
-    cursor: pointer;
-    transition: transform 0.2s, background-color 0.2s;
-}
-
-.music-toggle-btn:hover, .music-next-btn:hover {
-    transform: scale(1.05);
-    background-color: var(--spotify-green-hover);
-}
-
-.track-title-ticker {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    font-weight: 600;
-    max-width: 110px;
-    white-space: nowrap;
+/* --- 1. FLOATING BACKGROUND GLOW ORBS --- */
+.app-container {
+    position: relative;
     overflow: hidden;
-    text-overflow: ellipsis;
+}
+
+.app-container::before {
+    content: '';
+    position: absolute;
+    top: 15vh;
+    left: 10vw;
+    width: 350px;
+    height: 350px;
+    background: rgba(29, 185, 84, 0.07);
+    filter: blur(100px);
+    border-radius: 50%;
+    z-index: -1;
+    animation: floatOrb 10s infinite alternate ease-in-out;
+}
+
+@keyframes floatOrb {
+    0% { transform: translateY(0) scale(1); }
+    100% { transform: translateY(50px) scale(1.1); }
+}
+
+
+.glass-panel:hover::after {
+    transform: rotate(35deg) translateX(100%);
+}
+
+
+/* --- 3. SKILL PROGRESS BAR POP-IN --- */
+.progress-bar-fill {
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: barShimmer 2s infinite;
+}
+
+@keyframes barShimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
 }

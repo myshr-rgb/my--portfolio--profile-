@@ -65,25 +65,33 @@ function App() {
       />
 
       {/* FLOATING PILL NAVIGATION */}
-      <nav className="floating-nav">
-        <div className="nav-links glass-panel">
-          <a href="#about">About</a>
-          <a href="#skills">Skills</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
-          
-          {/* MUSIC CONTROLS */}
-          <div className="music-player-widget">
-            <button onClick={togglePlay} className="music-toggle-btn">
-              {isPlaying ? '🎵 Pause' : '▶ Play'}
-            </button>
-            <button onClick={nextTrack} className="music-next-btn" title="Next Song">
-              ⏭
-            </button>
-            <span className="track-title-ticker">{playlist[currentTrackIndex].title}</span>
-          </div>
-        </div>
-      </nav>
+<nav className="floating-nav">
+  <div className="nav-links glass-panel">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+    
+    {/* SOPHISTICATED MUSIC CONTROLS WITH EQUALIZER */}
+    <div className="music-player-widget">
+      <button onClick={togglePlay} className="music-toggle-btn">
+        {isPlaying ? '🎵 Pause' : '▶ Play'}
+      </button>
+      <button onClick={nextTrack} className="music-next-btn" title="Next Song">
+        ⏭
+      </button>
+      
+      {/* Equalizer bars that animate only when playing */}
+      <div className={`equalizer ${isPlaying ? 'active' : ''}`}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      
+      <span className="track-title-ticker">{playlist[currentTrackIndex].title}</span>
+    </div>
+  </div>
+</nav>
 
       {/* HERO SECTION WITH BANNER BACKGROUND */}
       <header id="home" className="hero-section">
